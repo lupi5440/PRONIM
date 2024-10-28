@@ -1,5 +1,7 @@
 version: "3.9"
 
+#Para axeder al contenedor es con el comando docker exec -it nombre_contenedor bash
+
 services:
   db:
     image: mysql:5.7
@@ -13,6 +15,7 @@ services:
       - "3309:3306"
     volumes:
       - db_data:/var/lib/mysql
+    # networks define la red que se va a utilizar, por lo que si hay 2 servicios que se van a comunicar, deben estar en la misma red
     networks:
       - mern_network
 
@@ -32,6 +35,7 @@ services:
       PORT: 3001
     depends_on:
       - db
+    # networks define la red que se va a utilizar, por lo que si hay 2 servicios que se van a comunicar, deben estar en la misma red
     networks:
       - mern_network
 
@@ -44,6 +48,7 @@ services:
       - "3000:3000"
     depends_on:
       - backend
+    # networks define la red que se va a utilizar, por lo que si hay 2 servicios que se van a comunicar, deben estar en la misma red
     networks:
       - mern_network
 

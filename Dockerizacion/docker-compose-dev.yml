@@ -1,5 +1,7 @@
 version: "3.9"
 
+#Para axeder al contenedor es con el comando docker exec -it nombre_contenedor bash
+
 services:
   db:
     image: mysql:5.7
@@ -22,7 +24,6 @@ services:
     command: ["nodemon", "index.js"]
     volumes:
       - ./backend:/app
-      - /app/node_modules
     ports:
       - "3001:3001"
     environment:
@@ -32,6 +33,7 @@ services:
       DB_NAME: PRONIM
       DB_PORT: 3306
       PORT: 3001
+    # depends_on: indica que este servicio depende de otro, por lo que se va a esperar a que el servicio db esté listo para poder iniciar
     depends_on:
       - db
     networks:
@@ -45,14 +47,15 @@ services:
     command: ["npm", "start"]
     volumes:
       - ./frontend:/app
-      - /app/node_modules
     ports:
       - "3000:3000"
+    # depends_on: indica que este servicio depende de otro, por lo que se va a esperar a que el servicio backend esté listo para poder iniciar
     depends_on:
       - backend
     networks:
       - mern_network
 
+# volumes: se define el volumen que se va a utilizar para almacenar los datos de la base de datos
 volumes:
   db_data:
 
