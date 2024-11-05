@@ -1,0 +1,38 @@
+% !TeX root = ../proyecto.tex
+%--------------------------------------
+\section{IU001 Interfaz (Control de acceso)}
+
+\subsection{Objetivo}
+	\cdtInstrucciones{Describa el objetivo, propósito o función de la pantalla.}
+Esta Interfaz tiene como objetivo permitir al usuario introducir sus datos para acceder al sistema.
+\subsection{Diseño}
+	\cdtInstrucciones{Describa brevemente los elementos de la pantalla y como de be usarse a manera de manual de usuario.} 
+ Esta pantalla \IUref{IU001}{Pantalla de Control de Acceso} aparece al iniciar el sistema, para ingresar su identificador tiene un cmpo de texto en la parte de arriba, un campo de contraseña para ingresar su contraseña, debajo un boton para enviar el formulario y finalmente un hipervinculo para acceder a la recuperacion de contraseña. 
+
+\IUfig[.7]{IU001}{IU001}{Pantalla de Control de Acceso.}
+
+%\IUfig[ancho de la figura: valor entre 1 y .1]{Nombre corto de la pantalla sin espacions ni acentos}{IUXX}{Nombre largo de la pantalla.}
+
+\subsection{Salidas}
+
+	\cdtInstrucciones{Liste las salidas de la interfaz. Si coinciden con las del caso de uso solo indiquelo. Esta ,ista debe incluir los mensajes}
+
+	\begin{itemize}
+		\item Coincide con el caso de uso
+	\end{itemize}
+	
+\subsection{Entradas}
+
+	\cdtInstrucciones{Liste las entradas de la interfaz. Si coinciden con las del caso de uso solo indiquelo.}
+	\begin{itemize}
+		\item Coincide con el caso de uso.
+	\end{itemize}
+
+\subsection{Comandos}
+	\cdtInstrucciones{Describa cada control (botónes, areas de drag and drop, componentes interactivos, animaciones, etc.) que se puede utilizar dentro de la pantalla indicando o que hacen y si cambia de pantalla.}
+
+\begin{itemize}
+	\item \IUbutton{Entrar}: Verifica los datos del formulario esten llenos, el id exista, la contraseña coincida con la guardada y la cuenta no este suspendida, ademas busca el rol del perfil. Si la verificación es correcta, se muestra la \IUref{IU-003}{Pantalla Principal}.
+	\item \IUbutton{Recuperr Contraseña}:Se muestra la \IUref{IU-004}{Recuperar contraseña}.
+\end{itemize}
+

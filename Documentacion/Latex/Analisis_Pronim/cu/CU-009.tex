@@ -1,0 +1,113 @@
+%!TEX root = ../proyecto.tex
+
+\begin{UseCase}{CU-009}{Registrar Salón}{
+	Dado un usuario autenticado con los permisos necesarios, este puede acceder al formulario para registrar un nuevo salón en el sistema. Los datos ingresados serán almacenados en la base de datos, vinculando el salón con el centro de trabajo, la condición y los materiales correspondientes.
+}
+	\UCitem{Versión}{\color{Gray}
+		0.1
+	}
+	\UCitem{Autor}{\color{Gray}
+		Padilla Escobar Karel Roman.
+	}
+	\UCitem{Supervisa}{\color{Gray}
+		Agustín Flores López.
+	}
+	\UCitem{Actor}{
+		\hyperlink{Administrador}{Administrador}
+	}
+	\UCitem{Propósito}{\begin{Titemize}
+		\Titem Registrar la información de un salón en el sistema.
+        \Titem Asociar el salón a un centro de trabajo, su condición y los materiales de construcción.
+	\end{Titemize}
+	}
+	\UCitem{Entradas}{\begin{Titemize}
+        \Titem ID del Centro de Trabajo (obligatorio)
+        \Titem ID de Condición del Salón (obligatorio)
+        \Titem ID de Materiales (obligatorio)
+        \Titem Descripción de la Construcción (obligatorio)
+	\end{Titemize}
+	}
+	\UCitem{Origen}{\begin{Titemize}
+		\Titem Se introducen desde el teclado a través del formulario de registro.
+	\end{Titemize}
+	}
+	\UCitem{Salidas}{\begin{Titemize}
+		\Titem Mensaje de confirmación indicando que el salón ha sido registrado exitosamente.
+        \Titem Mensaje de error si los datos son inválidos o no existe una referencia válida en las tablas relacionadas.
+	\end{Titemize}
+	}
+	\UCitem{Destino}{\begin{Titemize}
+		\Titem Los datos se almacenan en la base de datos en la tabla \texttt{Salon}.
+	\end{Titemize}
+	}
+	\UCitem{Precondiciones}{\begin{Titemize}
+		\Titem El usuario debe estar autenticado y tener permisos de administrador.
+		\Titem El centro de trabajo, la condición y los materiales a registrar deben existir previamente en sus respectivas tablas.
+	\end{Titemize}
+	}
+	\UCitem{Postcondiciones}{\begin{Titemize}
+		\Titem Se añade un nuevo registro en la tabla \texttt{Salon}.
+	\end{Titemize}
+	}
+	\UCitem{Errores}{\begin{Titemize}
+		\Titem {\bf \hypertarget{CU009.E1}{E1}}: Si algún campo obligatorio no está completo, se muestra un mensaje de error solicitando los datos faltantes.
+        \Titem {\bf \hypertarget{CU009.E2}{E2}}: Si el ID del Centro de Trabajo no existe en la base de datos, se muestra un mensaje de error indicando que no se encuentra el centro de trabajo.
+		\Titem {\bf \hypertarget{CU009.E3}{E3}}: Si el ID de Condición no existe en la base de datos, se muestra un mensaje indicando que no se encuentra la condición.
+        \Titem {\bf \hypertarget{CU009.E4}{E4}}: Si el ID de Materiales no existe en la base de datos, se muestra un mensaje indicando que no se encuentran los materiales.
+	\end{Titemize}
+	}
+	\UCitem{Tipo}{
+		Caso de uso primario
+	}
+	\UCitem{Observaciones}{
+        El administrador debe asegurarse de que los registros de centro de trabajo, condición y materiales existan antes de intentar registrar un nuevo salón.
+        --Modificar el caso de uso para agregar los hipervinculos a las entradas y salidas además del mensaje, el destino esta mal y las postcondiciones. El actor esta mal, la interfaz esta sin terminar --
+	}
+\end{UseCase}
+
+%--------------------------------------
+\begin{UCtrayectoria}
+	\UCpaso[\UCactor] Ingresa al módulo de administración y selecciona la opción para registrar un nuevo salón.
+	\UCpaso Se muestra la pantalla \IUref{IU006}{Formulario de Registro de Salón}.
+	\UCpaso[\UCactor] \label{CU009.introduceDatos} Ingresa la información en los campos correspondientes: ID del Centro de Trabajo, ID de Condición, ID de Materiales y Descripción de la Construcción.
+	\UCpaso[\UCactor] Da clic en el botón \IUbutton{Guardar} para enviar el formulario.
+	\UCpaso Verifica que los campos obligatorios estén completos y validados.
+	\UCpaso Verifica que el ID del Centro de Trabajo exista en la tabla \texttt{Centro\_de\_trabajo} \ErrorRef{CU009}{E2}{Centro de trabajo no encontrado}.
+	\UCpaso Verifica que el ID de Condición exista en la tabla \texttt{Condicion} \ErrorRef{CU009}{E3}{Condición no encontrada}.
+	\UCpaso Verifica que el ID de Materiales exista en la tabla \texttt{Materiales} \ErrorRef{CU009}{E4}{Materiales no encontrados}.
+	\UCpaso Almacena el nuevo registro en la base de datos en la tabla \texttt{Salon}.
+	\UCpaso Muestra el mensaje \MSGref{MSG-002}{Registro exitoso} al usuario.
+\end{UCtrayectoria}
+
+%--------------------------------------
+\begin{UCtrayectoriaA}{CU009}{A}{Falta de datos obligatorios}
+	\UCpaso Muestra el mensaje de error \MSGref{MSG-003}{Faltan datos obligatorios} y señala los campos faltantes.
+	\UCpaso[] El caso de uso continúa en el paso \ref{CU009.introduceDatos}.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{CU009}{B}{Centro de trabajo no encontrado}
+	\UCpaso Muestra el mensaje de error \MSGref{MSG-004}{El centro de trabajo especificado no se encuentra en el sistema}.
+	\UCpaso[] El caso de uso continúa en el paso \ref{CU009.introduceDatos}.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{CU009}{C}{Condición no encontrada}
+	\UCpaso Muestra el mensaje de error \MSGref{MSG-005}{La condición especificada no se encuentra en el sistema}.
+	\UCpaso[] El caso de uso continúa en el paso \ref{CU009.introduceDatos}.
+\end{UCtrayectoriaA}
+
+\begin{UCtrayectoriaA}{CU009}{D}{Materiales no encontrados}
+	\UCpaso Muestra el mensaje de error \MSGref{MSG-006}{Los materiales especificados no se encuentran en el sistema}.
+	\UCpaso[] El caso de uso continúa en el paso \ref{CU009.introduceDatos}.
+\end{UCtrayectoriaA}
+
+%--------------------------------------
+\subsection{Puntos de extensión}
+\UCExtenssionPoint{
+	El usuario desea cancelar el registro del salón antes de completarlo.
+}{
+	Del paso \ref{CU009.introduceDatos} al paso \ref{CU009.introduceDatos}.
+}{
+	\UCref{CU004}{Cancelar Registro de Salón}.
+}
+
+%-------------------------------------- TERMINA descripción del caso de uso.

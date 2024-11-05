@@ -1,0 +1,160 @@
+%!TEX root = ../proyecto.tex
+
+% Plantilla para caso de uso sencillo con ejemplos de comandos e intrucciones.
+%-------------------------------------- COMIENZA descripción del caso de uso.
+
+%\begin{UseCase}[archivo de imágen]{UCX}{Nombre del Caso de uso}{
+%--------------------------------------
+\begin{UseCase}{CU-006}{Registrar Centro de Trabajo}{
+Cuando un Centro de Trabajo sea añadida al PRONIM el Coordinador Estatal proveera al sistema los datos del Centro de Trabajo y el sistema los almacenará para su posterior consulta y uso.
+	% La descripción debe describir el evento de inicio del caso de uso, Breve descripción de la trayectoria y estado final del caso de uso.
+}
+	\UCitem{Versión}{\color{Gray}
+		0.1	% Ponga un número de versión, 
+	}\UCitem{Autor}{\color{Gray}
+		Agustin Flores Lopez. % Analista responsable de especificar el CU
+	}\UCitem{Supervisa}{\color{Gray}
+		Nombre del analista revisor. % Analista responsable de verificar que está correcto.
+	% TODO: Dar de alta al actor Usuario
+	}\UCitem{Actor}{
+		\hyperlink{CoordinadorEstatal}{Coordinador Estatal} % No olvide dar de alta el actor.
+	}\UCitem{Propósito}{\begin{Titemize}%Indique los fines, objetivos, propósitos o valores agregados del Caso de uso.
+		\Titem Mantener actualizado el catalogo de Centros de Trabajo asociados al PRONIM.
+		\Titem Permitir llevar el seguimiento de los alumnos que se registren en los nuevos centros de trabajo.
+	\end{Titemize}
+	}\UCitem{Entradas}{\begin{Titemize}
+		% TODO: Dar de alta las entidades que se listan.
+		\Titem \hyperlink{CT.Calle}{Calle} donde se ubica. % El identificador no acepta acentos, espacios ni eñes.
+		\Titem \hyperlink{CT.Numero}{Numero} donde se ubica.
+        \Titem \hyperlink{CT.Colonia}{Colonia} donde se ubica.
+        \Titem \hyperlink{CT.Municipio}{Municipio} donde se ubica.
+        \Titem \hyperlink{CT.Nombre}{Nombre} del centro de trabajo.
+        \Titem \hyperlink{Estado.Nombre}{Estado} donde se ubica.
+        \Titem\hyperlink{CCT.CCT}{Clave} del centro de trabajo.
+        \Titem \hyperlink{Formacion.Nombre}{Formación} que imparte.
+        % Liste todos los datos de entrada
+		\end{Titemize}
+	}\UCitem{Origen}{\begin{Titemize}
+		\Titem Se introducen desde el teclado. % Indique por que medio se introducen los datos, 
+		\Titem Se seleccionan de listas desplegables.          % Si es ḿas de uno indique que datos corresponden en cada medio de entrada.
+	\end{Titemize}
+	}\UCitem{Salidas}{\begin{Titemize}
+		% TODO: Dar de alta las entidades que se listan.
+		\Titem \hyperlink{CT.Calle}{Calle} donde se ubica. % El identificador no acepta acentos, espacios ni eñes.
+		\Titem \hyperlink{CT.Numero}{Numero} donde se ubica.
+        \Titem \hyperlink{CT.Colonia}{Colonia} donde se ubica.
+        \Titem \hyperlink{CT.Municipio}{Municipio} donde se ubica.
+        \Titem \hyperlink{Estado.Nombre}{Estado} donde se ubica.
+        \Titem \hyperlink{Formacion.Nombre}{Formación} que imparte.
+        \Titem\hyperlink{CCT.CCT}{Clave} del centro de trabajo.
+		\Titem Mensajes de error. % Indique por que medio se introducen los datos, 
+		\Titem Datos que aparecen en pantalla.          % Si es ḿas de uno indique que datos corresponden en cada medio de entrada.
+	\end{Titemize}
+	}\UCitem{Destino}{\begin{Titemize}
+		\Titem Se muestra en la pantalla \IUref{IU005}{Registro Centro de Trabajo}.. % Indique por que medio se muestran los datos,         % Si es ḿas de uno indique que datos corresponden en cada medio de entrada.
+	\end{Titemize}
+	}\UCitem{Precondiciones}{\begin{Titemize}
+		% Incluya Precondiciones lógicas, de negocio e incluso las que debe atender el usuario. 
+		% Muchas precondiciones provienen de reglas de negocios, otras estarán asociadas a manejo de errores
+		% Otras están relacionadas con casos de uso que deben ejecutarse previamente, como registrar un producto.
+		\Titem El usuario debe haber iniciado sesión.
+  \Titem Debe haber al menos un estado registrado.
+  \Titem Debe haber al menos una formación registrado.
+  \Titem No debe haber sido registrado con anterioridad.
+  
+	\end{Titemize}
+	}\UCitem{Postcondiciones}{\begin{Titemize}
+		% Indique todas las postcondiciones
+		% por ejemplo, Cambios en el sistema
+		% Cambios en la BD una vez terminado el CU
+		% Efectos colaterales
+		% Condiciones de término.
+		\Titem Se guardara un nuevo centro de trabajo.
+        \Titem Se guardara una nueva CCT o un nuevo prestamo.
+        \Titem Se creara un puesto de director vacio.
+        \Titem Se permitira nuevos registros de profesores y alumnos para ese Centro de Trabajo.
+	\end{Titemize}
+	}\UCitem{Errores}{\begin{Titemize}
+		% Escriba todos los errores que puedan ocurrir en el sistema, para cada error recuerde:
+		% Punerle un identificador
+		% Describir la condición o escenario que detona el error
+		% Describa la forma en que debe reaccionar el sitema: si la reaccion corresponde a varios pasos use mejor una trayectoria alternativa.
+		% Relacione el error con la trayectoria principal.
+		\Titem {\bf \hypertarget{CU004.E1}{E1}}: Si el usuario olvida ingresar alguno de los campos obligatorios, el sistema mostrara el \MSGref{MSG-005}{Faltan rellenar campos obligatorios}. y regresa al paso \ref{UC4.Datos}.
+		\Titem {\bf \hypertarget{CU004.E2}{E2}}: Si la clave de centro de trabajo no cumple con el formato, el sistema mostrara el \MSGref{MSG-007}{Campo con formato incorrecto}  y regresa al paso \ref{UC4.Datos}.
+  \Titem {\bf \hypertarget{CU004.E3}{E3}}: Si la clave de centro de trabajo esta repetida y no tiene el estado de prestamo activado, el sistema mostrara el \MSGref{MSG-010}{Clave del Centro de Trabajo no Prestada} y regresa al paso \ref{UC4.Datos}.
+  
+	\end{Titemize}
+	}\UCitem{Tipo}{
+		% Especifique el tipo de caso de us, puede ser: "Caso de uso primario" o 
+		% "Viene de \\hyperref{CUY}{CUY nombre del CU}" cuando se desprende desde otro caso de uso mediante un extends.
+		Caso de uso primario
+	}\UCitem{Observaciones}{
+		% Indique las observaciones al caso de uso, las cuales pueden ser:
+		% - Ninguna
+		% - Dudas sobre el procedimiento o la especificación.
+		% - Issues detectados
+		% - Suposiciones realizadas.
+		% - Cualquier otra especificacion que considere pertinente que no pudo colocarse en los demás atributos del Caso de uso
+		% - Aclaraciones.
+		% - Notas para el usuario o desarrollador.
+		% - Pendientes (TODO's) en caso de no usar los comentarios.
+	}
+\end{UseCase}
+
+%--------------------------------------
+\begin{UCtrayectoria}
+	% Cada paso debe inicair con un Verbo en infinitivo, siempre especificando el objetivo del paso mas la accion en concreto.
+	% \UCpaso[\UCactor] se refiere al actor y \UCpaso se refiere al sistema.
+	% A continuación viene ejemplos de pasos:
+	% En el siguiente paso: "Ingresa al sistema" es el objetivo del paso y "escribiendo la URL de la aplicación" es la acción en concreto.
+	\UCpaso[\UCactor] Ingresa al sistema desde la \IUref{IU003}{Pagina Principal}.
+	% En el siguinte paso se referencia una Interfaz
+  \UCpaso Obtiene todos los estados activos y las formaciones guardadas para las listas desplegables
+	\UCpaso \label{UC4.Datos} Solicita al usuario las entradas en la  \IUref{IU005}{Registrar Centro de Trabajo}
+	% En el siguiente paso está etiquetado para ser referenciado por un error o trayectoria alternativa:
+	\UCpaso[\UCactor]  Introduce \hyperlink{CT.Calle}{Calle}, \hyperlink{CT.Numero}{Numero} , \hyperlink{CT.Colonia}{Colonia} , \hyperlink{CT.Municipio}{Municipio} 
+    \UCpaso[\UCactor] Selecciona de las listas desplegables \hyperlink{Estado.Nombre}{Estado} , \hyperlink{Formacion.Nombre}{Formación} 
+	% En el siguiente paso se usa el comando \IUbutton 
+	\UCpaso[\UCactor] Solicita el registro en el sistema presionando el botón \IUbutton{Registrar}.
+	% En el siguiente paso se referencía un error.
+	 \UCpaso Verifica que todos los campos obligatorios esten llenos \ErrorRef{CU004}{E1}{Campos faltantes}.
+  \UCpaso Obtiene el ID del Estado seleccionado.
+  \UCpaso Obtiene el ID de la formacion seleccionada.
+  \UCpaso Le asigna a este Centro de Trabajo el número siguiente disponible como su idetificador.
+  \UCpaso Verifica el formato en el campo CCT \ErrorRef{CU004}{E2}{Campo con formato incorrecto}.
+  \UCpaso Verifica si la CCT no esta registrada en el sistema \Trayref{CU004}{A}.
+  
+   \UCpaso Guarda la información del CT.
+  \UCpaso Guarda la información del CCT.
+ 
+	% En el siguiente paso se señala una trayectoria alternativa
+	\UCpaso \label{UC4.Mensaje} Muestra la pantalla \IUref{IU5}{Registrar Centro de Trabajo} con el mensaje \MSGref{MSG-011}{Registr exitoso} y los campos vacios.
+\end{UCtrayectoria}
+
+
+%--------------------------------------
+% Las trayectorias alternativas se identifican con Letras: A, B, C, etc.
+\begin{UCtrayectoriaA}{CU004}{A}{La CCT ya esta registrada en el sistema}
+	\UCpaso Verifica si la CCT puede ser prestada. \ErrorRef{CU004}{E3}{Clave de Centro de Trabajo no prestada}
+    \UCpaso Guarda la información del CT.
+    \UCpaso Obtiene el identificador del centro de trabajo.
+    \UCpaso Obtiene la fecha actual.
+    \UCpaso Obtiene la fecha de termino del ciclo escolar más proximo.
+    \UCpaso Guarda la información del prestamo. 
+    % Se puede desprender otra trayectria alternativa si es necesario.
+	% Finalice la trayectoria indicando si la ejecución se integra a la trayectoria anterior o si termina la ejecución del CU.
+	% Verifique que la redacción de la trayectoria deje en claro si el objetivo del CU se alcanzó o no.
+	\UCpaso[] El Caso de Uso continúa en el paso \ref{UC4.Mensaje}.
+\end{UCtrayectoriaA}
+
+
+%--------------------------------------
+% Puntos de extensión
+
+% Comente la siguiente sección en caso de que no hayan puntos de extensión o relaciones de tipo extends.
+
+		
+		
+		
+%-------------------------------------- TERMINA descripción del caso de uso.

@@ -1,0 +1,118 @@
+%!TEX root = ../proyecto.tex
+
+% Plantilla para caso de uso sencillo con ejemplos de comandos e intrucciones.
+%-------------------------------------- COMIENZA descripción del caso de uso.
+
+%\begin{UseCase}[archivo de imágen]{UCX}{Nombre del Caso de uso}{
+%--------------------------------------
+\begin{UseCase}{CU-007}{Asignar Director}{
+	% La descripción debe describir el evento de inicio del caso de uso, Breve descripción de la trayectoria y estado final del caso de uso.
+}
+	\UCitem{Versión}{\color{Gray}
+		0.1	% Ponga un número de versión, 
+	}\UCitem{Autor}{\color{Gray}
+		Agustin Flores Lopez. % Analista responsable de especificar el CU
+	}\UCitem{Supervisa}{\color{Gray}
+		Nombre del analista revisor. % Analista responsable de verificar que está correcto.
+	% TODO: Dar de alta al actor Usuario
+	}\UCitem{Actor}{
+		\hyperlink{CoordinadorEstatal}{Coordinador Estatal} % No olvide dar de alta el actor.
+	}\UCitem{Propósito}{\begin{Titemize}%Indique los fines, objetivos, propósitos o valores agregados del Caso de uso.
+		\Titem Permitir a un director realizar sus facultades.
+		\Titem Actualizar quien dirige un Centro de Trabajo.
+	\end{Titemize}
+	}\UCitem{Entradas}{\begin{Titemize}
+		% TODO: Dar de alta las entidades que se listan.
+		\Titem \hyperlink{CT.Nombre}{Nombre} del Centro de Trabajo. % El identificador no acepta acentos, espacios ni eñes.
+		\Titem \hyperlink{Profesor.ID}{Identificador} de profesor.
+        \Titem \hyperlink{Profesor.FechaFin}{Fecha de termino} del periodo de director.% Liste todos los datos de entrada
+		\end{Titemize}
+	}\UCitem{Origen}{\begin{Titemize}
+		\Titem Se introducen desde el teclado. % Indique por que medio se introducen los datos, 
+		\Titem otros.          % Si es ḿas de uno indique que datos corresponden en cada medio de entrada.
+	\end{Titemize}
+	}\UCitem{Salidas}{\begin{Titemize}
+		% TODO: Dar de alta las entidades que se listan.
+		\Titem Mensajes de error. % Indique por que medio se introducen los datos, 
+	\end{Titemize}
+	}\UCitem{Destino}{\begin{Titemize}
+		\Titem Se muestra en la pantalla \IUref{IU007}{Asignar Director }.. % Indique por que medio se muestran los datos, 
+		          % Si es ḿas de uno indique que datos corresponden en cada medio de entrada.
+	\end{Titemize}
+	}\UCitem{Precondiciones}{\begin{Titemize}
+		% Incluya Precondiciones lógicas, de negocio e incluso las que debe atender el usuario. 
+		% Muchas precondiciones provienen de reglas de negocios, otras estarán asociadas a manejo de errores
+		% Otras están relacionadas con casos de uso que deben ejecutarse previamente, como registrar un producto.
+		\Titem El usuario debe haber iniciado sesión.
+  \Titem Debe haber al menos un profesor registrado.
+  \Titem Debe haber al menos un centro de trabajo registrado.
+	\end{Titemize}
+	}\UCitem{Postcondiciones}{\begin{Titemize}
+		% Indique todas las postcondiciones
+		% por ejemplo, Cambios en el sistema
+		% Cambios en la BD una vez terminado el CU
+		% Efectos colaterales
+		% Condiciones de término.
+		\Titem Se guardara la fecha de inicio y termino de un director asi como su centro de trabajo.
+	\end{Titemize}
+	}\UCitem{Errores}{\begin{Titemize}
+		% Escriba todos los errores que puedan ocurrir en el sistema, para cada error recuerde:
+		% Punerle un identificador
+		% Describir la condición o escenario que detona el error
+		% Describa la forma en que debe reaccionar el sitema: si la reaccion corresponde a varios pasos use mejor una trayectoria alternativa.
+		% Relacione el error con la trayectoria principal.
+		\Titem {\bf \hypertarget{CU005.E1}{E1}}: La fecha proporcionada es anterior a la actual, el sistema muestra el \MSGref{MSG-0012}{Fecha novalida} y regresa al paso \ref{UC5.Datos}.
+		\Titem {\bf \hypertarget{CUX.E2}{E2}}: Condición que detona el error, reacción del sistema y termina el Caso de uso..
+	\end{Titemize}
+	}\UCitem{Tipo}{
+		% Especifique el tipo de caso de us, puede ser: "Caso de uso primario" o 
+		% "Viene de \\hyperref{CUY}{CUY nombre del CU}" cuando se desprende desde otro caso de uso mediante un extends.
+		Caso de uso primario
+	}\UCitem{Observaciones}{
+		% Indique las observaciones al caso de uso, las cuales pueden ser:
+		% - Ninguna
+		% - Dudas sobre el procedimiento o la especificación.
+		% - Issues detectados
+		% - Suposiciones realizadas.
+		% - Cualquier otra especificacion que considere pertinente que no pudo colocarse en los demás atributos del Caso de uso
+		% - Aclaraciones.
+		% - Notas para el usuario o desarrollador.
+		% - Pendientes (TODO's) en caso de no usar los comentarios.
+	}
+\end{UseCase}
+
+%--------------------------------------
+\begin{UCtrayectoria}
+	% Cada paso debe inicair con un Verbo en infinitivo, siempre especificando el objetivo del paso mas la accion en concreto.
+	% \UCpaso[\UCactor] se refiere al actor y \UCpaso se refiere al sistema.
+	% A continuación viene ejemplos de pasos:
+	% En el siguiente paso: "Ingresa al sistema" es el objetivo del paso y "escribiendo la URL de la aplicación" es la acción en concreto.
+	\UCpaso[\UCactor] Ingresa al sistema desde la \IUref{IU003}{Pagina Principal}.
+	% En el siguinte paso se referencia una Interfaz
+  \UCpaso Obtiene todos los centros de trabajo del estado del actor y los profesores activos.
+	\UCpaso \label{UC5.Datos} Solicita al usuario las entradas en la  \IUref{IU007}{Registrar Centro de Trabajo}
+	% En el siguiente paso se usa el comando \IUbutton 
+	\UCpaso[\UCactor] Selecciona los datos desde los desplegables.
+    \UCpaso[\UCactor] Presiona el \IUbutton{Aceptar}
+    \UCpaso obtiene el id del centro de trabajo seleccionado.
+    \UCpaso verifica que la fecha proporcionada sea posterior a la del dia de hoy \ErrorRef{CU005}{E1}{Fecha anterior a la actual}.
+    \UCpaso Guarda el nuevo director.
+	% En el siguiente paso se referencía un error.
+	\
+\end{UCtrayectoria}
+
+
+%--------------------------------------
+% Las trayectorias alternativas se identifican con Letras: A, B, C, etc.
+
+
+
+%--------------------------------------
+% Puntos de extensión
+
+% Comente la siguiente sección en caso de que no hayan puntos de extensión o relaciones de tipo extends.
+
+		
+		
+		
+%-------------------------------------- TERMINA descripción del caso de uso.

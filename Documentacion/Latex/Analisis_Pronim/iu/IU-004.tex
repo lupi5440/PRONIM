@@ -1,14 +1,14 @@
 % !TeX root = ../proyecto.tex
 %--------------------------------------
-\section{IUX Interfaz (nombre de la interfaz)}
+\section{IU004 Interfaz (Recuperar contraseña)}
 
 \subsection{Objetivo}
 	\cdtInstrucciones{Describa el objetivo, propósito o función de la pantalla.}
-
+Esta Interfaz tiene como objetivo permitir al usuario recuperar su contraseña si la olvido pero recuerda su identificador y su correo.
 \subsection{Diseño}
-	\cdtInstrucciones{Describa brevemente los elementos de la pantalla y como de be usarse a manera de manual de usuario.} Esta pantalla \IUref{IU001}{Pantalla de Control de Acceso} aparece al iniciar el sistema, para ingresar ... 
+	\cdtInstrucciones{Describa brevemente los elementos de la pantalla y como de be usarse a manera de manual de usuario.} Esta pantalla \IUref{IU004}{Recuperar contraseña} contiene solo dos campos de texto y un botón para enviar el formulario .
 
-\IUfig[.7]{IU001}{IU001}{Pantalla de Control de Acceso.}
+\IUfig[.7]{IU004}{IU004}{Recuperar contraseña.}
 
 %\IUfig[ancho de la figura: valor entre 1 y .1]{Nombre corto de la pantalla sin espacions ni acentos}{IUXX}{Nombre largo de la pantalla.}
 
@@ -17,21 +17,21 @@
 	\cdtInstrucciones{Liste las salidas de la interfaz. Si coinciden con las del caso de uso solo indiquelo. Esta ,ista debe incluir los mensajes}
 
 	\begin{itemize}
-		\item Descripción de salida.
+		\item Igual al caso de uso
 	\end{itemize}
 	
 \subsection{Entradas}
 
 	\cdtInstrucciones{Liste las entradas de la interfaz. Si coinciden con las del caso de uso solo indiquelo.}
 	\begin{itemize}
-		\item Descripción de salida.
+		\item Igual al caso de uso.
 	\end{itemize}
 
 \subsection{Comandos}
 	\cdtInstrucciones{Describa cada control (botónes, areas de drag and drop, componentes interactivos, animaciones, etc.) que se puede utilizar dentro de la pantalla indicando o que hacen y si cambia de pantalla.}
 
 \begin{itemize}
-	\item \IUbutton{Entrar}: Verifica que el Estudiante se encuentre registrado y la contraseña sea la correcta. Si la verificación es correcta, se muestra la \IUref{UI32}{Pantalla de Selección de Seminario}.
-	\item \IUbutton{Ayuda}: Muestra la ayuda de esta pantalla \IUref{IU50}{Pantalla de Ayuda}.
+	\item \IUbutton{Recuperar}: Verifica los datos del formulario esten llenos, el id exista, la cuenta no este suspendida, y que el correo coincida con el guarddo. Si la verificación es correcta, se muestra la \IUref{IU-001}{Control de acceso}.
+	
 \end{itemize}
 
